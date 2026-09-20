@@ -1,0 +1,10 @@
+fields:
+  -
+    handle: email
+    field:
+      display: 'Email address'
+      type: text
+      input_type: email
+      validate:
+        - required
+        - email

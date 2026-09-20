@@ -1,0 +1,22 @@
+title: Categories
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      required: true
+      localizable: true
+  -
+    handle: slug
+    field:
+      type: slug
+      required: true
+      localizable: true
+      from: title
+      read_only: true
+  -
+    handle: description
+    field:
+      type: textarea
+      display: 'Short description'
+      instructions: 'Used on the homepage topic cloud and category filters.'

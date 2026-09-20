@@ -1,0 +1,79 @@
+title: Articles
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      required: true
+      localizable: true
+  -
+    handle: slug
+    field:
+      type: slug
+      required: true
+      localizable: true
+      from: title
+  -
+    handle: category
+    field:
+      type: terms
+      taxonomies:
+        - categories
+      max_items: 1
+      required: true
+  -
+    handle: author
+    field:
+      type: text
+      default: Somi
+  -
+    handle: standfirst
+    field:
+      type: textarea
+      display: 'Standfirst / excerpt'
+      instructions: 'Short summary shown on cards, the archive list and the essay header.'
+      required: true
+  -
+    handle: hero_image
+    field:
+      type: assets
+      container: assets
+      max_files: 1
+      display: 'Hero image'
+  -
+    handle: hero_image_caption
+    field:
+      type: text
+      display: 'Hero image caption'
+  -
+    handle: content
+    field:
+      type: markdown
+      display: 'Essay body'
+      required: true
+  -
+    handle: read_time
+    field:
+      type: integer
+      display: 'Read time (minutes)'
+      default: 5
+  -
+    handle: views
+    field:
+      type: integer
+      display: 'View count'
+      default: 0
+      instructions: 'Static placeholder count shown in the UI (no live tracking yet).'
+  -
+    handle: comments_count
+    field:
+      type: integer
+      display: 'Comments count'
+      default: 0
+      instructions: 'Static placeholder count shown in the UI (no live comment system yet).'
+  -
+    handle: featured
+    field:
+      type: toggle
+      display: 'Feature on homepage'
+      instructions: 'Shown as the featured essay on the homepage and the "No. 01" issue tag.'
