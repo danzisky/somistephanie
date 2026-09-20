@@ -46,9 +46,9 @@ function formatCount(value: number): string {
         </figure>
 
         <!-- eslint-disable-next-line vue/no-v-html -- content_html is rendered server-side from trusted Markdown authored in the CMS -->
-        <div class="somi-essay-body mx-auto my-12 max-w-170 text-[1.08rem]" v-html="article.content_html" />
+        <div class="somi-essay-body mx-auto my-12 max-w-250 text-[1.08rem]" v-html="article.content_html" />
 
-        <div class="mx-auto flex max-w-170 flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
+        <div class="mx-auto flex max-w-250 flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.comments_count) }} comments</span>
         </div>

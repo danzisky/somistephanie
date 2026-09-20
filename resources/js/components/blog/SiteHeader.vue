@@ -19,7 +19,7 @@ const currentUrl = computed(() => page.url);
 </script>
 
 <template>
-    <header class="sticky top-0 z-40 mx-auto flex w-full max-w-[1180px] items-center justify-between bg-somi-cream/90 px-6 py-5 backdrop-blur-sm">
+    <header class="sticky top-0 z-40 mx-auto flex w-full max-w-295 items-center justify-between bg-somi-cream/30 px-6 py-5 backdrop-blur-sm">
         <Link href="/" class="flex flex-col font-serif leading-none" aria-label="SOMI home">
             <span class="text-2xl font-semibold tracking-wide text-somi-plum">SOMI</span>
             <small class="mt-1 font-sans text-[0.65rem] font-normal tracking-widest text-somi-plum-soft uppercase">Stories of my identities</small>

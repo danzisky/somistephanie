@@ -25,9 +25,9 @@ class BlogController extends Controller
         $latestEntries = $this->content->articles(limit: 10);
 
         $latest = collect($latestEntries)
-            ->reject(fn (array $entry) => $featured && $entry['id'] === $featured['id'])
+            ->reject(fn(array $entry) => $featured && $entry['id'] === $featured['id'])
             ->take(4)
-            ->map(fn (array $entry) => $this->formatArticle($entry))
+            ->map(fn(array $entry) => $this->formatArticle($entry))
             ->values()
             ->all();
 
@@ -63,7 +63,7 @@ class BlogController extends Controller
         $entries = $this->content->articles(limit: 100);
 
         $articles = collect($entries)
-            ->map(fn (array $entry) => $this->formatArticle($entry, withContent: false))
+            ->map(fn(array $entry) => $this->formatArticle($entry, withContent: false))
             ->values()
             ->all();
 
@@ -85,9 +85,9 @@ class BlogController extends Controller
         $others = $this->content->articles(limit: 10);
 
         $related = collect($others)
-            ->reject(fn (array $other) => $other['id'] === $entry['id'])
+            ->reject(fn(array $other) => $other['id'] === $entry['id'])
             ->take(2)
-            ->map(fn (array $other) => $this->formatArticle($other, withContent: false))
+            ->map(fn(array $other) => $this->formatArticle($other, withContent: false))
             ->values()
             ->all();
 
@@ -118,7 +118,7 @@ class BlogController extends Controller
         $terms = $this->content->categoryTerms(50);
 
         return collect($terms)
-            ->map(fn (array $term) => [
+            ->map(fn(array $term) => [
                 'title' => $term['title'],
                 'slug' => $term['slug'],
                 'description' => $term['description'] ?? '',
@@ -187,6 +187,7 @@ class BlogController extends Controller
 
     protected function renderMarkdown(string $markdown): string
     {
+        return $markdown;
         static $converter;
 
         $converter ??= new CommonMarkConverter([
