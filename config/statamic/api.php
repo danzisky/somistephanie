@@ -18,9 +18,15 @@ return [
     'enabled' => env('STATAMIC_API_ENABLED', false),
 
     'resources' => [
-        'collections' => false,
+        'collections' => [
+            'articles' => [
+                'allowed_filters' => ['category', 'featured', 'title', 'slug'],
+            ],
+        ],
         'navs' => false,
-        'taxonomies' => false,
+        'taxonomies' => [
+            'categories' => true,
+        ],
         'assets' => false,
         'globals' => false,
         'forms' => false,

@@ -1,0 +1,11 @@
+title: Articles
+route: '/article/{slug}'
+template: null
+layout: null
+blueprints:
+  - articles
+date: true
+sort_dir: desc
+sort_field: date
+taxonomies:
+  - categories

@@ -15,6 +15,11 @@ export default defineConfig({
                 bunny('Instrument Sans', {
                     weights: [400, 500, 600],
                 }),
+                bunny('Fraunces', {
+                    alias: 'serif',
+                    weights: [400, 500, 600],
+                    styles: ['normal', 'italic'],
+                }),
             ],
         }),
         inertia(),

@@ -1,0 +1,1225 @@
+/*
+ * SOMI blog design system.
+ *
+ * Scoped under `.somi-app` and namespaced with a `somi-` prefix so it never
+ * collides with the Tailwind-based admin/dashboard UI that ships elsewhere
+ * in this app. Loaded only by the public blog layout/pages.
+ */
+
+.somi-app {
+    --somi-cream: #fbf3ec;
+    --somi-cream-soft: #f6e9de;
+    --somi-blush: #eec4c0;
+    --somi-blush-deep: #dd968f;
+    --somi-rose: #c97b74;
+    --somi-plum: #3a2c2a;
+    --somi-plum-soft: #6b5b56;
+    --somi-line: #e9d9cd;
+    --somi-white: #fffdfb;
+    --somi-shadow: 0 30px 60px -35px rgba(58, 44, 42, 0.35);
+    --somi-radius-lg: 28px;
+    --somi-radius-md: 18px;
+    --somi-radius-sm: 12px;
+
+    background: var(--somi-cream);
+    color: var(--somi-plum);
+    font-family: var(--font-instrument-sans, ui-sans-serif, system-ui, sans-serif);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+.somi-app * {
+    box-sizing: border-box;
+}
+
+.somi-app h1,
+.somi-app h2,
+.somi-app h3 {
+    font-family: var(--font-serif, ui-serif, Georgia, serif);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--somi-plum);
+    margin: 0;
+}
+
+.somi-app p {
+    margin: 0;
+}
+
+.somi-app a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.somi-app img {
+    max-width: 100%;
+    display: block;
+}
+
+.somi-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---------- Buttons & links ---------- */
+
+.somi-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: var(--somi-plum);
+    color: var(--somi-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.somi-button:hover {
+    background: var(--somi-rose);
+    transform: translateY(-1px);
+}
+
+.somi-button-soft {
+    background: var(--somi-blush);
+    color: var(--somi-plum);
+}
+
+.somi-button-soft:hover {
+    background: var(--somi-blush-deep);
+    color: var(--somi-white);
+}
+
+.somi-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    color: var(--somi-rose);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.somi-text-link:hover {
+    border-color: currentColor;
+}
+
+.somi-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--somi-rose);
+    margin-bottom: 12px;
+}
+
+/* ---------- Header ---------- */
+
+.somi-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px;
+    max-width: 1180px;
+    margin: 0 auto;
+    width: 100%;
+    background: color-mix(in srgb, var(--somi-cream) 88%, transparent);
+    backdrop-filter: blur(6px);
+}
+
+.somi-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    font-family: var(--font-serif, serif);
+}
+
+.somi-wordmark span {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.somi-wordmark small {
+    font-family: var(--font-instrument-sans, sans-serif);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--somi-plum-soft);
+    margin-top: 4px;
+}
+
+.somi-main-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.somi-main-nav a {
+    color: var(--somi-plum-soft);
+    transition: color 0.2s ease;
+}
+
+.somi-main-nav a:hover,
+.somi-main-nav a.somi-nav-active {
+    color: var(--somi-plum);
+}
+
+.somi-main-nav .somi-nav-cta {
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: var(--somi-plum);
+    color: var(--somi-white);
+}
+
+.somi-main-nav .somi-nav-cta:hover {
+    background: var(--somi-rose);
+    color: var(--somi-white);
+}
+
+.somi-mobile-nav {
+    display: none;
+}
+
+.somi-mobile-nav button {
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.somi-mobile-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 8px 24px 22px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.somi-mobile-panel a {
+    color: var(--somi-plum-soft);
+}
+
+/* ---------- Footer ---------- */
+
+.somi-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--somi-line);
+    padding: 40px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.somi-footer-brand span {
+    font-family: var(--font-serif, serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.somi-footer-brand p {
+    color: var(--somi-plum-soft);
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.somi-footer-links {
+    display: flex;
+    gap: 22px;
+    font-size: 0.9rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-copyright {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--somi-plum-soft);
+    margin-top: 12px;
+}
+
+/* ---------- Hero (home) ---------- */
+
+.somi-hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+    padding: 56px 24px 72px;
+}
+
+.somi-hero h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+}
+
+.somi-hero h1 em {
+    color: var(--somi-rose);
+    font-style: italic;
+}
+
+.somi-hero-lede {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    color: var(--somi-plum-soft);
+    max-width: 44ch;
+}
+
+.somi-hero-actions {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.somi-mini-manifesto {
+    margin-top: 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    max-width: 32ch;
+}
+
+.somi-mini-manifesto span {
+    font-family: var(--font-serif, serif);
+    font-size: 1.4rem;
+    color: var(--somi-blush-deep);
+}
+
+.somi-mini-manifesto p {
+    font-size: 0.9rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-hero-art {
+    position: relative;
+}
+
+.somi-hero-photo {
+    border-radius: var(--somi-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-hero-photo-main {
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, var(--somi-blush), var(--somi-cream-soft));
+}
+
+.somi-hero-photo-small {
+    position: absolute;
+    bottom: -32px;
+    left: -32px;
+    width: 42%;
+    aspect-ratio: 4 / 5;
+    border: 6px solid var(--somi-white);
+    background: linear-gradient(160deg, var(--somi-cream-soft), var(--somi-blush));
+}
+
+.somi-hero-note {
+    position: absolute;
+    top: -18px;
+    right: -10px;
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-md);
+    padding: 16px 20px;
+    box-shadow: var(--somi-shadow);
+    font-size: 0.85rem;
+}
+
+.somi-hero-note span {
+    display: block;
+    color: var(--somi-rose);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.somi-hero-note strong {
+    font-family: var(--font-serif, serif);
+    font-weight: 500;
+}
+
+/* ---------- Placeholder art (no CMS image set) ---------- */
+
+.somi-art-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--somi-blush) 0%, var(--somi-cream-soft) 100%);
+    color: var(--somi-plum-soft);
+    font-family: var(--font-serif, serif);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 12px;
+}
+
+.somi-feature-visual img,
+.somi-feature-visual .somi-art-placeholder,
+.somi-newsletter-art img,
+.somi-newsletter-art .somi-art-placeholder,
+.somi-hero-media img,
+.somi-hero-media .somi-art-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.somi-page-intro .somi-art-placeholder {
+    border-radius: var(--somi-radius-lg);
+    aspect-ratio: 1 / 1;
+    box-shadow: var(--somi-shadow);
+    width: 100%;
+}
+
+.somi-subscribe-visual .somi-art-placeholder {
+    border-radius: var(--somi-radius-lg);
+    aspect-ratio: 16 / 10;
+    box-shadow: var(--somi-shadow);
+    width: 100%;
+    object-fit: cover;
+}
+
+/* ---------- Featured story ---------- */
+
+.somi-feature-story {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 48px;
+    align-items: center;
+    padding: 64px 24px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-feature-visual {
+    border-radius: var(--somi-radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.somi-issue {
+    font-size: 0.8rem;
+    color: var(--somi-plum-soft);
+    font-weight: 500;
+}
+
+.somi-feature-copy h2 {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    margin: 10px 0 14px;
+}
+
+.somi-feature-copy p.somi-meta,
+.somi-meta {
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-feature-copy .somi-button {
+    margin-top: 24px;
+}
+
+/* ---------- Latest writing / story grid ---------- */
+
+.somi-latest {
+    padding: 64px 24px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-story-grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.somi-story-card {
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-md);
+    padding: 20px;
+    box-shadow: 0 20px 40px -32px rgba(58, 44, 42, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.somi-story-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-story-card img,
+.somi-story-card .somi-art-placeholder {
+    border-radius: var(--somi-radius-sm);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    object-fit: cover;
+}
+
+.somi-story-card h3 {
+    font-size: 1.05rem;
+    margin-top: 4px;
+}
+
+.somi-story-card p {
+    color: var(--somi-plum-soft);
+    font-size: 0.9rem;
+}
+
+.somi-card-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--somi-rose);
+}
+
+/* ---------- Topics / topic cloud ---------- */
+
+.somi-topics {
+    padding: 64px 24px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-topics-intro h2 {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    margin-top: 8px;
+}
+
+.somi-topic-cloud {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.somi-topic-pill {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-md);
+    padding: 22px;
+    border: 1px solid var(--somi-line);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.somi-topic-pill:hover {
+    border-color: var(--somi-blush-deep);
+    transform: translateY(-2px);
+}
+
+.somi-topic-pill > span {
+    font-family: var(--font-serif, serif);
+    font-size: 1.4rem;
+    color: var(--somi-blush-deep);
+}
+
+.somi-topic-pill h3 {
+    font-size: 1rem;
+}
+
+.somi-topic-pill p {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+}
+
+/* ---------- Newsletter ---------- */
+
+.somi-newsletter {
+    padding: 72px 24px;
+    background: var(--somi-cream-soft);
+}
+
+.somi-newsletter-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.somi-newsletter-art {
+    border-radius: var(--somi-radius-lg);
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-newsletter-copy h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    margin-top: 8px;
+    max-width: 26ch;
+}
+
+.somi-newsletter-form {
+    margin-top: 24px;
+    max-width: 460px;
+}
+
+.somi-newsletter-form label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--somi-plum-soft);
+}
+
+.somi-newsletter-form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.somi-newsletter-form input[type='email'] {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    font-size: 0.95rem;
+    color: var(--somi-plum);
+}
+
+.somi-newsletter-form input[type='email']:focus {
+    outline: 2px solid var(--somi-blush-deep);
+    outline-offset: 2px;
+}
+
+.somi-newsletter-form small {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-newsletter-form .somi-form-note {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.somi-newsletter-form .somi-form-note.somi-success {
+    color: #3f7a55;
+}
+
+.somi-newsletter-form .somi-form-note.somi-error {
+    color: var(--somi-rose);
+}
+
+/* ---------- Contents / archive page ---------- */
+
+.somi-page-intro {
+    display: grid;
+    grid-template-columns: 1fr 0.4fr;
+    gap: 40px;
+    align-items: center;
+    padding: 56px 24px 40px;
+}
+
+.somi-page-intro h1 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-top: 6px;
+}
+
+.somi-page-intro p {
+    margin-top: 16px;
+    color: var(--somi-plum-soft);
+    max-width: 46ch;
+}
+
+.somi-page-intro img {
+    border-radius: var(--somi-radius-lg);
+    aspect-ratio: 1 / 1;
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-contents {
+    padding: 0 24px 80px;
+}
+
+.somi-contents-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--somi-line);
+    border-bottom: 1px solid var(--somi-line);
+    padding: 24px 0;
+}
+
+.somi-contents-tools label span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--somi-plum-soft);
+    margin-bottom: 6px;
+}
+
+.somi-contents-tools input {
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    min-width: 260px;
+    font-size: 0.9rem;
+}
+
+.somi-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.somi-filters button {
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--somi-plum-soft);
+    transition: all 0.2s ease;
+}
+
+.somi-filters button.somi-active,
+.somi-filters button:hover {
+    background: var(--somi-plum);
+    border-color: var(--somi-plum);
+    color: var(--somi-white);
+}
+
+.somi-result-count {
+    margin: 24px 0 8px;
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-archive-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.somi-archive-row {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 0.55fr;
+    gap: 24px;
+    align-items: center;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--somi-line);
+    transition: opacity 0.2s ease;
+}
+
+.somi-archive-row:hover h2 {
+    color: var(--somi-rose);
+}
+
+.somi-archive-row h2 {
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+    margin-bottom: 6px;
+}
+
+.somi-archive-row .somi-meta {
+    font-weight: 600;
+    color: var(--somi-rose);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+}
+
+.somi-archive-row p {
+    color: var(--somi-plum-soft);
+    font-size: 0.9rem;
+}
+
+.somi-archive-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--somi-plum-soft);
+    text-align: right;
+}
+
+.somi-empty-state {
+    padding: 60px 0;
+    text-align: center;
+    color: var(--somi-plum-soft);
+}
+
+/* ---------- Article page ---------- */
+
+.somi-essay-header {
+    padding: 56px 24px 32px;
+    max-width: 880px;
+}
+
+.somi-essay-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 10px 0 20px;
+}
+
+.somi-essay-header h1 em {
+    color: var(--somi-rose);
+    font-style: italic;
+}
+
+.somi-standfirst {
+    font-size: 1.1rem;
+    color: var(--somi-plum-soft);
+    max-width: 60ch;
+}
+
+.somi-byline {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-essay-hero-image {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.somi-essay-hero-image .somi-hero-media {
+    border-radius: var(--somi-radius-lg);
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-essay-hero-image figcaption {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--somi-plum-soft);
+    text-align: center;
+}
+
+.somi-essay-body {
+    max-width: 680px;
+    margin: 48px auto;
+    padding: 0 24px;
+    font-size: 1.08rem;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.somi-essay-body h2 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.somi-essay-body blockquote {
+    margin: 0;
+    padding: 20px 26px;
+    border-left: 3px solid var(--somi-blush-deep);
+    background: var(--somi-cream-soft);
+    border-radius: 0 var(--somi-radius-sm) var(--somi-radius-sm) 0;
+    font-family: var(--font-serif, serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--somi-plum);
+}
+
+.somi-post-actions {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    padding: 24px 24px 0;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--somi-line);
+    padding-top: 24px;
+}
+
+.somi-post-actions button,
+.somi-post-actions a,
+.somi-post-actions span {
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--somi-plum-soft);
+}
+
+.somi-related {
+    padding: 56px 24px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-related-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.somi-related-grid a {
+    display: block;
+}
+
+.somi-related-grid img,
+.somi-related-grid .somi-art-placeholder {
+    border-radius: var(--somi-radius-md);
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    object-fit: cover;
+}
+
+.somi-related-grid span {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--somi-rose);
+}
+
+.somi-related-grid h3 {
+    font-size: 1.05rem;
+    margin: 6px 0;
+}
+
+.somi-related-grid p {
+    color: var(--somi-plum-soft);
+    font-size: 0.9rem;
+}
+
+.somi-comments {
+    padding: 56px 24px 72px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-comments-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.somi-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.somi-comment-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--somi-plum-soft);
+}
+
+.somi-comment-form input,
+.somi-comment-form textarea {
+    padding: 12px 16px;
+    border-radius: var(--somi-radius-sm);
+    border: 1px solid var(--somi-line);
+    background: var(--somi-white);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--somi-plum);
+}
+
+.somi-comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.somi-comment {
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-sm);
+    padding: 18px 20px;
+    border: 1px solid var(--somi-line);
+}
+
+.somi-comment div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+    margin-bottom: 8px;
+}
+
+.somi-comment strong {
+    color: var(--somi-plum);
+}
+
+.somi-comment p {
+    color: var(--somi-plum-soft);
+}
+
+.somi-comment-note {
+    font-size: 0.8rem;
+    color: var(--somi-plum-soft);
+}
+
+/* ---------- Subscribe page ---------- */
+
+.somi-subscribe-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding: 56px 24px 72px;
+}
+
+.somi-subscribe-hero h1 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin: 10px 0 18px;
+}
+
+.somi-subscribe-hero h1 em {
+    color: var(--somi-rose);
+    font-style: italic;
+}
+
+.somi-subscribe-hero p {
+    color: var(--somi-plum-soft);
+    max-width: 46ch;
+}
+
+.somi-subscribe-visual {
+    position: relative;
+}
+
+.somi-subscribe-visual img {
+    border-radius: var(--somi-radius-lg);
+    aspect-ratio: 16 / 10;
+    box-shadow: var(--somi-shadow);
+    width: 100%;
+    object-fit: cover;
+}
+
+.somi-subscribe-card {
+    position: absolute;
+    bottom: -24px;
+    left: -24px;
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-md);
+    padding: 18px 22px;
+    box-shadow: var(--somi-shadow);
+    max-width: 220px;
+}
+
+.somi-subscribe-card span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--somi-rose);
+    margin-bottom: 6px;
+}
+
+.somi-membership {
+    padding: 64px 24px 88px;
+    border-top: 1px solid var(--somi-line);
+}
+
+.somi-plans {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.somi-plan {
+    background: var(--somi-white);
+    border-radius: var(--somi-radius-lg);
+    padding: 32px;
+    border: 1px solid var(--somi-line);
+}
+
+.somi-plan-featured {
+    background: var(--somi-plum);
+    color: var(--somi-white);
+    border-color: var(--somi-plum);
+}
+
+.somi-plan-featured h3,
+.somi-plan-featured .somi-meta,
+.somi-plan-featured .somi-plan-description {
+    color: var(--somi-white);
+}
+
+.somi-plan h3 {
+    font-size: 1.3rem;
+    margin-top: 6px;
+}
+
+.somi-plan-description {
+    margin: 10px 0 20px;
+    font-size: 0.9rem;
+    color: var(--somi-plum-soft);
+}
+
+.somi-price {
+    margin: 14px 0 20px;
+    font-family: var(--font-serif, serif);
+    font-size: 1.8rem;
+}
+
+.somi-price span {
+    font-family: var(--font-instrument-sans, sans-serif);
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.7;
+}
+
+.somi-plan ul {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.somi-plan ul li::before {
+    content: '— ';
+    opacity: 0.6;
+}
+
+.somi-plan .somi-button {
+    width: 100%;
+    justify-content: center;
+}
+
+.somi-plan-featured .somi-button {
+    background: var(--somi-white);
+    color: var(--somi-plum);
+}
+
+.somi-plan-featured .somi-button:hover {
+    background: var(--somi-blush);
+}
+
+.somi-plan-note {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--somi-plum-soft);
+}
+
+/* ---------- Shop placeholder ---------- */
+
+.somi-shop-placeholder {
+    padding: 96px 24px;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.somi-shop-placeholder .somi-art-placeholder {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 32px;
+    border-radius: var(--somi-radius-lg);
+    box-shadow: var(--somi-shadow);
+}
+
+.somi-shop-placeholder h1 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin: 10px 0 18px;
+}
+
+.somi-shop-placeholder p {
+    color: var(--somi-plum-soft);
+}
+
+.somi-shop-placeholder .somi-button {
+    margin-top: 28px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+    .somi-hero,
+    .somi-feature-story,
+    .somi-newsletter-grid,
+    .somi-subscribe-hero,
+    .somi-page-intro {
+        grid-template-columns: 1fr;
+    }
+
+    .somi-story-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .somi-topic-cloud,
+    .somi-plans,
+    .somi-related-grid,
+    .somi-comments-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .somi-archive-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .somi-archive-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: left;
+    }
+}
+
+@media (max-width: 720px) {
+    .somi-main-nav {
+        display: none;
+    }
+
+    .somi-mobile-nav {
+        display: block;
+    }
+
+    .somi-story-grid {
+        grid-template-columns: 1fr;
+    }
+}
