@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Services\StatamicApiClient;
+use App\Services\StatamicContentRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,20 +14,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends Controller
 {
-    public function __construct(protected StatamicApiClient $api) {}
+    public function __construct(protected StatamicContentRepository $content) {}
 
     public function home(): Response
     {
-        $featuredEntries = $this->api->get('/collections/articles/entries', [
-            'filter' => ['featured:is' => 'true'],
-            'limit' => 1,
-        ])['data'] ?? [];
+        $featuredEntries = $this->content->articles(['featured' => true], 1);
 
         $featured = $featuredEntries[0] ?? null;
 
-        $latestEntries = $this->api->get('/collections/articles/entries', [
-            'limit' => 10,
-        ])['data'] ?? [];
+        $latestEntries = $this->content->articles(limit: 10);
 
         $latest = collect($latestEntries)
             ->reject(fn (array $entry) => $featured && $entry['id'] === $featured['id'])
@@ -52,12 +47,9 @@ class BlogController extends Controller
      */
     public function featured(): RedirectResponse
     {
-        $entries = $this->api->get('/collections/articles/entries', [
-            'filter' => ['featured:is' => 'true'],
-            'limit' => 1,
-        ])['data'] ?? [];
+        $entries = $this->content->articles(['featured' => true], 1);
 
-        $entry = $entries[0] ?? $this->api->get('/collections/articles/entries', ['limit' => 1])['data'][0] ?? null;
+        $entry = $entries[0] ?? $this->content->articles(limit: 1)[0] ?? null;
 
         if (! $entry) {
             throw new NotFoundHttpException('No articles are available yet.');
@@ -68,9 +60,7 @@ class BlogController extends Controller
 
     public function contents(Request $request): Response
     {
-        $entries = $this->api->get('/collections/articles/entries', [
-            'limit' => 100,
-        ])['data'] ?? [];
+        $entries = $this->content->articles(limit: 100);
 
         $articles = collect($entries)
             ->map(fn (array $entry) => $this->formatArticle($entry, withContent: false))
@@ -86,20 +76,13 @@ class BlogController extends Controller
 
     public function article(string $slug): Response
     {
-        $entries = $this->api->get('/collections/articles/entries', [
-            'filter' => ['slug:is' => $slug],
-            'limit' => 1,
-        ])['data'] ?? [];
-
-        $entry = $entries[0] ?? null;
+        $entry = $this->content->articleBySlug($slug);
 
         if (! $entry) {
             throw new NotFoundHttpException("Article [{$slug}] was not found.");
         }
 
-        $others = $this->api->get('/collections/articles/entries', [
-            'limit' => 10,
-        ])['data'] ?? [];
+        $others = $this->content->articles(limit: 10);
 
         $related = collect($others)
             ->reject(fn (array $other) => $other['id'] === $entry['id'])
@@ -132,9 +115,7 @@ class BlogController extends Controller
      */
     protected function fetchTopics(): array
     {
-        $terms = $this->api->get('/taxonomies/categories/terms', [
-            'limit' => 50,
-        ])['data'] ?? [];
+        $terms = $this->content->categoryTerms(50);
 
         return collect($terms)
             ->map(fn (array $term) => [
