@@ -62,6 +62,30 @@
 }
 
 /*
+ * SOMI blog brand tokens, used by resources/js/pages/Blog and
+ * resources/js/components/blog via Tailwind utilities (e.g. `bg-somi-cream`,
+ * `text-somi-rose`, `shadow-somi`, `rounded-somi-lg`).
+ */
+@theme {
+    --color-somi-cream: #fbf3ec;
+    --color-somi-cream-soft: #f6e9de;
+    --color-somi-blush: #eec4c0;
+    --color-somi-blush-deep: #dd968f;
+    --color-somi-rose: #c97b74;
+    --color-somi-plum: #3a2c2a;
+    --color-somi-plum-soft: #6b5b56;
+    --color-somi-line: #e9d9cd;
+    --color-somi-white: #fffdfb;
+
+    --shadow-somi: 0 30px 60px -35px rgba(58, 44, 42, 0.35);
+    --shadow-somi-sm: 0 20px 40px -32px rgba(58, 44, 42, 0.4);
+
+    --radius-somi-lg: 28px;
+    --radius-somi-md: 18px;
+    --radius-somi-sm: 12px;
+}
+
+/*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
