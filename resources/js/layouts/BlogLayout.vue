@@ -7,7 +7,7 @@ import SiteHeader from '@/components/blog/SiteHeader.vue';
 <template>
     <div class="flex min-h-screen flex-col bg-somi-cream font-sans leading-relaxed text-somi-plum antialiased">
         <SiteHeader />
-        <main>
+        <main class="w-full">
             <slot />
         </main>
         <SiteFooter />

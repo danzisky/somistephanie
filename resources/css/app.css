@@ -67,7 +67,8 @@
  * `text-somi-rose`, `shadow-somi`, `rounded-somi-lg`).
  */
 @theme {
-    --color-somi-cream: #fbf3ec;
+    /* --color-somi-cream: #fbf3ec; */
+    --color-somi-cream: rgb(255, 250, 252);
     --color-somi-cream-soft: #f6e9de;
     --color-somi-blush: #eec4c0;
     --color-somi-blush-deep: #dd968f;

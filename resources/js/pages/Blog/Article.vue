@@ -20,8 +20,8 @@ function formatCount(value: number): string {
         <meta name="description" :content="article.standfirst" />
     </Head>
 
-    <article class="mx-auto w-full max-w-295 px-6">
-        <header class="mx-auto max-w-220 py-14 pb-8">
+    <article class="mx-auto w-full px-6">
+        <header class="mx-auto py-14 pb-8">
             <p class="mb-3 text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">{{ article.category }}</p>
             <h1 class="font-serif text-[clamp(2rem,4vw,3rem)] font-medium text-somi-plum">{{ article.title }}</h1>
             <p class="mt-2.5 max-w-[60ch] text-lg text-somi-plum-soft">{{ article.standfirst }}</p>
@@ -32,7 +32,7 @@ function formatCount(value: number): string {
             </div>
         </header>
 
-        <figure class="mx-auto max-w-250">
+        <figure class="mx-auto">
             <div class="aspect-16/10 overflow-hidden rounded-somi-lg shadow-somi">
                 <img
                     v-if="article.hero_image"
@@ -46,15 +46,15 @@ function formatCount(value: number): string {
         </figure>
 
         <!-- eslint-disable-next-line vue/no-v-html -- content_html is rendered server-side from trusted Markdown authored in the CMS -->
-        <div class="somi-essay-body mx-auto my-12 max-w-250 text-[1.08rem]" v-html="article.content_html" />
+        <div class="somi-essay-body mx-auto my-12 w-full text-[1.08rem]" v-html="article.content_html" />
 
-        <div class="mx-auto flex max-w-250 flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
+        <div class="mx-auto flex w-full flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.comments_count) }} comments</span>
         </div>
     </article>
 
-    <section v-if="related.length" class="mx-auto w-full max-w-295 border-t border-somi-line px-6 py-14">
+    <section v-if="related.length" class="mx-auto w-full border-t border-somi-line px-6 py-14">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Keep reading</p>
             <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">Related stories</h2>
@@ -64,7 +64,7 @@ function formatCount(value: number): string {
         </div>
     </section>
 
-    <section class="mx-auto w-full max-w-295 border-t border-somi-line px-6 py-14 pb-18">
+    <section class="mx-auto w-full border-t border-somi-line px-6 py-14 pb-18">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Reader thoughts</p>
             <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">{{ formatCount(article.comments_count) }} comments</h2>
@@ -112,7 +112,7 @@ function formatCount(value: number): string {
     </section>
 
     <section class="bg-somi-cream-soft px-6 py-18">
-        <div class="mx-auto grid w-full max-w-295 items-center gap-12 md:grid-cols-[0.8fr_1.2fr]">
+        <div class="mx-auto grid w-full items-center gap-12 md:grid-cols-[0.8fr_1.2fr]">
             <div class="aspect-square overflow-hidden rounded-somi-lg shadow-somi">
                 <PlaceholderArt label="SOMI" />
             </div>
