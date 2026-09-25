@@ -3,12 +3,12 @@
     :href="href || '#'
     "
     :class="[
-      'group overflow-hidden rounded-4xl transition-all duration-200 hover:-translate-y-1 flex flex-col',
+      'group overflow-hidden rounded-4xl transition-transform duration-300 ease-out hover:-translate-y-1 flex flex-col',
       themeClasses[theme],
     ]"
   >
     <div v-if="image" class="h-full max-h-3/7 overflow-hidden">
-      <img :src="image" :alt="title" class="h-full w-full object-cover" loading="lazy" />
+      <img :src="image" :alt="title" class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110" loading="lazy" />
     </div>
 
     <div class="flex h-full flex-col justify-between p-5 sm:p-6 md:p-7 lg:p-8">

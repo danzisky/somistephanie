@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full mx-auto overflow-hidden rounded-4xl bg-[#f2ecf9] text-[#523d4f] font-sans shadow-sm flex flex-col md:flex-row h-[70vh]">
+  <div class="group w-full mx-auto overflow-hidden rounded-4xl bg-[#f2ecf9] text-[#523d4f] font-sans shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 flex flex-col md:flex-row h-[70vh]">
     <!-- Left Column: Image Section -->
     <div class="relative w-full md:w-1/2">
       <img
         :src="props.featured?.hero_image ?? 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&q=80&w=1000'"
         :alt="props.featured?.hero_image_caption ?? 'Person looking in a mirror'"
-        class="w-full h-full object-cover"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
       <!-- Bottom Left Badge -->
       <div class="absolute bottom-5 left-5 bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-[#523d4f] uppercase shadow-sm">
@@ -53,12 +53,12 @@
 <script setup lang="ts">
 const props = defineProps<{
   featured: {
-    hero_image?: string;
-    hero_image_caption?: string;
+    hero_image?: string | null;
+    hero_image_caption?: string | null;
     title: string;
     standfirst: string;
     slug: string;
-    category: string;
+    category: string | null;
     read_time: number;
     views: number;
   } | null;
