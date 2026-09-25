@@ -1,14 +1,71 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue';
 import LatestWritingCard from '@/components/blog/card/LatestWriting.vue';
 import NewsletterSignup from '@/components/blog/NewsletterSignup.vue';
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
 import type { BlogArticle, BlogArticleSummary } from '@/types/blog';
 import { Head } from '@inertiajs/vue3';
 
-defineProps<{
+const props = defineProps<{
     article: BlogArticle;
     related: BlogArticleSummary[];
+    comments: BlogComment[];
 }>();
+
+interface BlogComment {
+    id: string;
+    name: string;
+    comment: string;
+    date: string;
+}
+
+const comments = ref([...props.comments]);
+const name = ref('');
+const email = ref('');
+const comment = ref('');
+const honey = ref('');
+const commentStatus = ref<'idle' | 'submitting' | 'success' | 'error'>('idle');
+const commentMessage = ref('');
+const commentCount = computed(() => comments.value.length);
+
+function csrfToken(): string {
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+}
+
+async function submitComment() {
+    if (commentStatus.value === 'submitting') return;
+
+    commentStatus.value = 'submitting';
+    commentMessage.value = '';
+
+    try {
+        const response = await fetch(`/article/${props.article.slug}/comments`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken(),
+            },
+            body: JSON.stringify({ name: name.value, email: email.value, comment: comment.value, honey: honey.value }),
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            const firstError = Object.values(payload.errors ?? {})[0];
+            throw new Error(Array.isArray(firstError) ? firstError[0] : 'Please check your comment and try again.');
+        }
+
+        commentStatus.value = 'success';
+        commentMessage.value = payload.message ?? 'Thank you. Your comment is awaiting approval.';
+        name.value = '';
+        email.value = '';
+        comment.value = '';
+    } catch (error) {
+        commentStatus.value = 'error';
+        commentMessage.value = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+    }
+}
 
 const latestThemes = ['rose', 'lavender', 'yellow', 'blue'] as const;
 
@@ -56,7 +113,7 @@ function formatCount(value: number): string {
 
         <div class="mx-auto flex w-full flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
-            <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.comments_count) }} comments</span>
+            <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(commentCount) }} comments</span>
         </div>
     </article>
 
@@ -83,45 +140,54 @@ function formatCount(value: number): string {
     <section class="mx-auto w-full max-w-300 border-t border-somi-line px-6 py-14 pb-18">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Reader thoughts</p>
-            <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">{{ formatCount(article.comments_count) }} comments</h2>
+            <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">{{ formatCount(commentCount) }} comments</h2>
         </div>
 
         <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
-            <form class="flex flex-col gap-4" @submit.prevent>
+            <form class="flex flex-col gap-4" @submit.prevent="submitComment">
+                <label class="flex flex-col gap-1.5 text-sm font-medium text-somi-plum-soft">
+                    <span>Your name</span>
+                    <input v-model="name" required maxlength="100" class="rounded-somi-sm border border-somi-line bg-somi-white p-4 font-sans text-sm text-somi-plum" />
+                </label>
+                <label class="flex flex-col gap-1.5 text-sm font-medium text-somi-plum-soft">
+                    <span>Email address</span>
+                    <input v-model="email" required type="email" maxlength="255" autocomplete="email" class="rounded-somi-sm border border-somi-line bg-somi-white p-4 font-sans text-sm text-somi-plum" />
+                </label>
                 <label class="flex flex-col gap-1.5 text-sm font-medium text-somi-plum-soft">
                     <span>Share a thought</span>
                     <textarea
+                        v-model="comment"
                         rows="3"
                         placeholder="What did this piece stir up for you?"
-                        disabled
+                        required
+                        maxlength="2000"
                         class="rounded-somi-sm border border-somi-line bg-somi-white p-4 font-sans text-sm text-somi-plum"
                     />
                 </label>
                 <button
                     type="submit"
-                    class="self-start rounded-full bg-somi-plum px-7 py-3.5 text-sm font-medium text-somi-white disabled:cursor-not-allowed disabled:opacity-60"
-                    disabled
-                    title="Comments are coming soon"
+                    class="self-start rounded-full bg-somi-plum px-7 py-3.5 text-sm font-medium text-somi-white transition-colors hover:bg-somi-rose disabled:cursor-not-allowed disabled:opacity-60"
+                    :disabled="commentStatus === 'submitting'"
                 >
-                    Post comment
+                    {{ commentStatus === 'submitting' ? 'Sending…' : 'Post comment' }}
                 </button>
-                <p class="text-sm text-somi-plum-soft">Comments are read-only for now — join the newsletter to be notified when they open up.</p>
+                <input v-model="honey" type="text" tabindex="-1" autocomplete="off" class="absolute -left-[9999px]" aria-hidden="true" />
+                <p v-if="commentStatus !== 'idle'" class="text-sm" :class="commentStatus === 'error' ? 'text-somi-rose' : 'text-green-700'">{{ commentMessage }}</p>
+                <p v-else class="text-sm text-somi-plum-soft">Comments are reviewed before they appear publicly.</p>
             </form>
 
             <div class="flex flex-col gap-5">
-                <div class="rounded-somi-sm border border-somi-line bg-somi-white p-5">
-                    <div class="mb-2 flex justify-between text-sm text-somi-plum-soft">
-                        <strong class="text-somi-plum">Aisha</strong>
-                        <span>2 days ago</span>
+                <template v-if="comments.length">
+                    <div v-for="item in comments" :key="item.id" class="rounded-somi-sm border border-somi-line bg-somi-white p-5">
+                        <div class="mb-2 flex justify-between gap-4 text-sm text-somi-plum-soft">
+                            <strong class="text-somi-plum">{{ item.name }}</strong>
+                            <span>{{ item.date }}</span>
+                        </div>
+                        <p class="text-somi-plum-soft">{{ item.comment }}</p>
                     </div>
-                    <p class="text-somi-plum-soft">This put words to something I've been feeling for months. Thank you for writing it so gently.</p>
-                </div>
-                <div class="rounded-somi-sm border border-somi-line bg-somi-white p-5">
-                    <div class="mb-2 flex justify-between text-sm text-somi-plum-soft">
-                        <strong class="text-somi-plum">Nneka</strong>
-                        <span>5 days ago</span>
-                    </div>
-                    <p class="text-somi-plum-soft">Reading this on my lunch break and I might need the rest of the afternoon to sit with it.</p>
+                </template>
+                <div v-else class="rounded-somi-sm border border-dashed border-somi-line p-5 text-sm text-somi-plum-soft">
+                    No comments yet. Start the conversation.
                 </div>
             </div>
         </div>

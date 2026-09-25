@@ -7,6 +7,7 @@ Route::get('/', [BlogController::class, 'home'])->name('home');
 Route::get('/contents', [BlogController::class, 'contents'])->name('blog.contents');
 Route::get('/article', [BlogController::class, 'featured'])->name('blog.featured');
 Route::get('/article/{slug}', [BlogController::class, 'article'])->name('blog.article');
+Route::post('/article/{slug}/comments', [BlogController::class, 'storeComment'])->name('blog.comments.store');
 Route::get('/subscribe', [BlogController::class, 'subscribe'])->name('blog.subscribe');
 Route::get('/shop', [BlogController::class, 'shop'])->name('blog.shop');
 

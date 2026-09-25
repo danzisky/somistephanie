@@ -1,0 +1,47 @@
+title: Comments
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      required: true
+  -
+    handle: slug
+    field:
+      type: slug
+      required: true
+  -
+    handle: article_slug
+    field:
+      display: 'Article slug'
+      type: text
+      required: true
+  -
+    handle: name
+    field:
+      display: Name
+      type: text
+      required: true
+  -
+    handle: email
+    field:
+      display: 'Email address'
+      type: text
+      input_type: email
+      required: true
+  -
+    handle: comment
+    field:
+      display: Comment
+      type: textarea
+      required: true
+  -
+    handle: status
+    field:
+      display: Status
+      type: select
+      default: pending
+      options:
+        pending: Pending
+        approved: Approved
+        rejected: Rejected

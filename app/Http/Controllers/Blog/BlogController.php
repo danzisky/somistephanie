@@ -7,9 +7,12 @@ use App\Services\StatamicContentRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 use League\CommonMark\CommonMarkConverter;
+use Statamic\Facades\Entry;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends Controller
@@ -91,10 +94,48 @@ class BlogController extends Controller
             ->values()
             ->all();
 
+        $comments = $this->commentsFor($slug);
+
         return Inertia::render('Blog/Article', [
             'article' => $this->formatArticle($entry, withContent: true),
             'related' => $related,
+            'comments' => $comments,
         ]);
+    }
+
+    public function storeComment(Request $request, string $slug)
+    {
+        if (! $this->content->articleBySlug($slug)) {
+            throw new NotFoundHttpException("Article [{$slug}] was not found.");
+        }
+
+        if ($request->string('honey')->trim()->isNotEmpty()) {
+            return response()->json(['success' => true]);
+        }
+
+        $validated = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:255'],
+            'comment' => ['required', 'string', 'min:3', 'max:2000'],
+        ])->validate();
+
+        $comment = Entry::make()
+            ->collection('comments')
+            ->slug(Str::uuid()->toString());
+        $comment->data([
+            'title' => "{$validated['name']} on {$slug}",
+            'article_slug' => $slug,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'comment' => $validated['comment'],
+            'status' => 'pending',
+        ]);
+        $comment->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Thank you. Your comment is awaiting approval.',
+        ], 201);
     }
 
     public function subscribe(): Response
@@ -122,6 +163,29 @@ class BlogController extends Controller
                 'title' => $term['title'],
                 'slug' => $term['slug'],
                 'description' => $term['description'] ?? '',
+            ])
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Only approved Statamic collection entries are public.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    protected function commentsFor(string $slug): array
+    {
+        return Entry::query()
+            ->where('collection', 'comments')
+            ->where('article_slug', $slug)
+            // ->whereStatus('approved')
+            ->orderBy('date', 'desc')
+            ->get()
+            ->map(fn($comment) => [
+                'id' => $comment->id(),
+                'name' => $comment->get('name'),
+                'comment' => $comment->get('comment'),
+                'date' => $comment->date()->diffForHumans(),
             ])
             ->values()
             ->all();
