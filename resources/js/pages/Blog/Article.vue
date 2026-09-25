@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import NewsletterForm from '@/components/blog/NewsletterForm.vue';
+import LatestWritingCard from '@/components/blog/card/LatestWriting.vue';
+import NewsletterSignup from '@/components/blog/NewsletterSignup.vue';
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
-import StoryCard from '@/components/blog/StoryCard.vue';
 import type { BlogArticle, BlogArticleSummary } from '@/types/blog';
 import { Head } from '@inertiajs/vue3';
 
@@ -9,6 +9,12 @@ defineProps<{
     article: BlogArticle;
     related: BlogArticleSummary[];
 }>();
+
+const latestThemes = ['rose', 'lavender', 'yellow', 'blue'] as const;
+
+function getTheme(index: number): (typeof latestThemes)[number] {
+    return latestThemes[index % latestThemes.length];
+}
 
 function formatCount(value: number): string {
     return new Intl.NumberFormat('en-US').format(value);
@@ -20,7 +26,7 @@ function formatCount(value: number): string {
         <meta name="description" :content="article.standfirst" />
     </Head>
 
-    <article class="mx-auto w-full px-6">
+    <article class="mx-auto w-full max-w-300 px-6">
         <header class="mx-auto py-14 pb-8">
             <p class="mb-3 text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">{{ article.category }}</p>
             <h1 class="font-serif text-[clamp(2rem,4vw,3rem)] font-medium text-somi-plum">{{ article.title }}</h1>
@@ -54,17 +60,27 @@ function formatCount(value: number): string {
         </div>
     </article>
 
-    <section v-if="related.length" class="mx-auto w-full border-t border-somi-line px-6 py-14">
+    <section v-if="related.length" class="mx-auto w-full max-w-300 border-t border-somi-line px-6 py-14">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Keep reading</p>
             <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">Related stories</h2>
         </div>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <StoryCard v-for="item in related" :key="item.id" :article="item" />
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <LatestWritingCard
+                v-for="(item, index) in related.slice(0, 4)"
+                :key="item.id"
+                :title="item.title"
+                :category="item.category ?? 'Essay'"
+                :read-time="`${item.read_time} min read`"
+                :excerpt="item.standfirst"
+                :href="`/article/${item.slug}`"
+                :image="item.hero_image"
+                :theme="getTheme(index)"
+            />
         </div>
     </section>
 
-    <section class="mx-auto w-full border-t border-somi-line px-6 py-14 pb-18">
+    <section class="mx-auto w-full max-w-300 border-t border-somi-line px-6 py-14 pb-18">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Reader thoughts</p>
             <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">{{ formatCount(article.comments_count) }} comments</h2>
@@ -111,16 +127,9 @@ function formatCount(value: number): string {
         </div>
     </section>
 
-    <section class="bg-somi-cream-soft px-6 py-18">
-        <div class="mx-auto grid w-full items-center gap-12 md:grid-cols-[0.8fr_1.2fr]">
-            <div class="aspect-square overflow-hidden rounded-somi-lg shadow-somi">
-                <PlaceholderArt label="SOMI" />
-            </div>
-            <div>
-                <p class="mb-3 text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Notes from SOMI</p>
-                <h2 class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] font-medium text-somi-plum">If this stayed with you, let more find you.</h2>
-                <NewsletterForm field-id="article-email" />
-            </div>
-        </div>
-    </section>
+    <NewsletterSignup
+        eyebrow="Notes from SOMI"
+        title="If this stayed with you, let more find you."
+        field-id="article-email"
+    />
 </template>
