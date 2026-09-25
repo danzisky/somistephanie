@@ -8,6 +8,29 @@
  * keep that rendered content visually consistent with the rest of the page.
  */
 
+html {
+    scrollbar-color: var(--color-somi-blush-deep) var(--color-somi-cream-soft);
+    scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+    width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+    background: var(--color-somi-cream-soft);
+}
+
+html::-webkit-scrollbar-thumb {
+    border: 3px solid var(--color-somi-cream-soft);
+    border-radius: 999px;
+    background: var(--color-somi-blush-deep);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--color-somi-rose);
+}
+
 .somi-essay-body {
     display: flex;
     flex-direction: column;

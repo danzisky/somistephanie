@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import NewsletterForm from '@/components/blog/NewsletterForm.vue';
+
 withDefaults(
   defineProps<{
     eyebrow?: string;
@@ -39,26 +41,7 @@ const artStyle = {
           {{ title }}
         </h2>
 
-        <div class="mt-8 max-w-xl">
-          <label :for="fieldId" class="mb-3 block text-[10px] font-semibold tracking-[0.25em] text-[#9e7c95] uppercase sm:text-xs">
-            Email address
-          </label>
-          <div class="flex items-center overflow-hidden rounded-full border border-[#d6b9b5] bg-[#f9f5f4] shadow-[0_1px_0_rgba(58,44,42,0.04)]">
-            <input
-              :id="fieldId"
-              type="email"
-              :placeholder="placeholder"
-              class="w-full bg-transparent px-5 py-4 text-base text-[#3a2c2a] placeholder:text-[#9a7b83] focus:outline-none"
-            />
-            <button
-              type="button"
-              class="shrink-0 rounded-full bg-[#5f4054] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#4d2f43]"
-            >
-              {{ buttonText }}
-            </button>
-          </div>
-          <p class="mt-3 text-sm text-[#6d5b6a]">No noise. Unsubscribe whenever you like.</p>
-        </div>
+        <NewsletterForm :field-id="fieldId" :button-text="buttonText" :placeholder="placeholder" variant="signup" />
       </div>
     </div>
   </section>
