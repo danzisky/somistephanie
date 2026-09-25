@@ -3,6 +3,7 @@ import { computed } from "vue";
 import PlaceholderArt from "@/components/blog/PlaceholderArt.vue";
 import ArticleHighlight from "@/components/blog/ArticleHighlight.vue";
 import NewsletterForm from "@/components/blog/NewsletterForm.vue";
+import NewsletterSignup from "@/components/blog/NewsletterSignup.vue";
 import LatestWritingCard from "@/components/blog/card/LatestWriting.vue";
 import TopicPill from "@/components/blog/TopicPill.vue";
 import type { BlogArticleSummary, BlogTopic } from "@/types/blog";
@@ -128,45 +129,5 @@ function getTheme(index: number): (typeof latestThemes)[number] {
         </div>
     </section>
 
-    <section class="w-full bg-[#f3e7e1] px-6 py-16 sm:py-20">
-        <div class="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-14">
-            <div class="mx-auto w-full max-w-[430px]">
-                <div class="overflow-hidden rounded-full border-[8px] border-white/80 bg-[#efe1d9] shadow-somi">
-                    <div class="aspect-square bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.7),_rgba(255,255,255,0)_52%),linear-gradient(135deg,#e5d3d5,#d8dbe8_38%,#d9d7cc_66%,#e6d8ca)]">
-                        <div class="h-full w-full bg-[radial-gradient(circle_at_35%_25%,rgba(255,255,255,0.8),transparent_18%),radial-gradient(circle_at_60%_38%,rgba(240,198,201,0.9),transparent_16%),radial-gradient(circle_at_48%_65%,rgba(209,215,232,0.8),transparent_15%),radial-gradient(circle_at_32%_70%,rgba(241,223,202,0.9),transparent_16%),linear-gradient(135deg,rgba(247,220,219,0.8),rgba(202,211,228,0.75),rgba(228,219,208,0.85),rgba(232,214,212,0.82))] opacity-90" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center md:text-left">
-                <p class="mb-4 text-[10px] font-semibold tracking-[0.25em] text-[#9e7c95] uppercase sm:text-xs">
-                    Notes from SOMI
-                </p>
-                <h2 class="mx-auto max-w-[14ch] font-serif text-[clamp(2.8rem,4vw,6rem)] leading-[0.92] tracking-[-0.04em] text-[#2d232d] md:mx-0 md:max-w-[12ch]">
-                    A little beauty for your inbox—and something honest to sit with.
-                </h2>
-
-                <div class="mt-8 max-w-xl">
-                    <label for="home-email" class="mb-3 block text-[10px] font-semibold tracking-[0.25em] text-[#9e7c95] uppercase sm:text-xs">
-                        Email address
-                    </label>
-                    <div class="flex items-center overflow-hidden rounded-full border border-[#d6b9b5] bg-[#f9f5f4] shadow-[0_1px_0_rgba(58,44,42,0.04)]">
-                        <input
-                            id="home-email"
-                            type="email"
-                            placeholder="you@example.com"
-                            class="w-full bg-transparent px-5 py-4 text-base text-[#3a2c2a] placeholder:text-[#9a7b83] focus:outline-none"
-                        />
-                        <button
-                            type="button"
-                            class="shrink-0 rounded-full bg-[#5f4054] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#4d2f43]"
-                        >
-                            Join the list
-                        </button>
-                    </div>
-                    <p class="mt-3 text-sm text-[#6d5b6a]">No noise. Unsubscribe whenever you like.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <NewsletterSignup />
 </template>
