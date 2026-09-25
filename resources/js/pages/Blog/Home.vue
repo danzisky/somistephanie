@@ -35,7 +35,7 @@ function getTheme(index: number): (typeof latestThemes)[number] {
         />
     </Head>
 
-    <section class="mx-auto max-w-300 grid w-full items-center gap-12 px-6 py-14 pb-18 md:grid-cols-[1.05fr_0.95fr]">
+    <section class="px-4 xl:mx-auto max-w-300 grid w-full items-center gap-12 px-6 py-14 pb-18 md:grid-cols-[1.05fr_0.95fr]">
         <div>
             <p class="mb-3 text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">
                 Stories of my identities
@@ -74,11 +74,11 @@ function getTheme(index: number): (typeof latestThemes)[number] {
         </div>
     </section>
 
-    <section v-if="featured" class="mx-auto max-w-300 mt-18 w-full">
+    <section v-if="featured" class="px-4 xl:mx-auto max-w-300 mt-18 w-full">
         <ArticleHighlight :featured="featured" />
     </section>
 
-    <section class="mx-auto max-w-300 w-full py-12 font-sans sm:py-20 mt-14">
+    <section class="px-4 xl:mx-auto max-w-300 w-full py-12 font-sans sm:py-20 mt-14">
         <div class="mb-8 flex items-end justify-between sm:mb-12">
             <div>
                 <p class="mb-2 text-[10px] font-semibold tracking-[0.25em] uppercase text-[#9e7c95] sm:text-xs">
@@ -112,7 +112,7 @@ function getTheme(index: number): (typeof latestThemes)[number] {
         </div>
     </section>
 
-    <section class="mx-auto max-w-300 w-full px-6 py-16" v-if="topics.length">
+    <section class="px-4 xl:mx-auto max-w-300 w-full px-6 py-16" v-if="topics.length">
         <div class="grid items-start gap-8 md:grid-cols-[0.9fr_1.1fr]">
             <div>
                 <p class="mb-3 text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">

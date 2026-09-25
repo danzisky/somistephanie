@@ -96,7 +96,7 @@ function formatCount(value: number): string {
         </header>
 
         <figure class="mx-auto">
-            <div class="aspect-16/10 overflow-hidden rounded-somi-lg shadow-somi">
+            <div class="aspect-16/10 overflow-hidden rounded-somi-lg">
                 <img
                     v-if="article.hero_image"
                     :src="article.hero_image"

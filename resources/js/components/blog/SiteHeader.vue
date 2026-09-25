@@ -57,10 +57,10 @@ const currentUrl = computed(() => page.url);
                 </button>
             </div>
         </div>
+        <div v-if="mobileOpen" id="somi-mobile-menu" class="absolute bottom-0 translate-y-full right-0 m-2 rounded-3xl py-6 px-10 z-100 w-max flex flex-col gap-4 text-base font-medium bg-somi-blush/60">
+            <Link v-for="link in links" :key="link.href" :href="link.href" class="text-somi-plum-soft" @click="mobileOpen = false">{{ link.label }}</Link>
+            <Link href="/subscribe" class="text-somi-plum-soft" @click="mobileOpen = false">Subscribe</Link>
+        </div>
     </header>
 
-    <div v-if="mobileOpen" id="somi-mobile-menu" class="flex flex-col gap-4 px-6 pb-6 text-base font-medium">
-        <Link v-for="link in links" :key="link.href" :href="link.href" class="text-somi-plum-soft" @click="mobileOpen = false">{{ link.label }}</Link>
-        <Link href="/subscribe" class="text-somi-plum-soft" @click="mobileOpen = false">Subscribe</Link>
-    </div>
 </template>

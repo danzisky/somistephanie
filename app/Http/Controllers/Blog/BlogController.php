@@ -218,7 +218,7 @@ class BlogController extends Controller
             'views' => (int) ($entry['views'] ?? 0),
             'comments_count' => (int) ($entry['comments_count'] ?? 0),
             'featured' => (bool) ($entry['featured'] ?? false),
-            'hero_image' => $heroImage['permalink'] ?? $heroImage['url'] ?? null,
+            'hero_image' => $this->normalizeAssetUrl($heroImage['url'] ?? $heroImage['permalink'] ?? null),
             'hero_image_caption' => $entry['hero_image_caption'] ?? null,
         ];
 
@@ -247,6 +247,26 @@ class BlogController extends Controller
         }
 
         return array_is_list($value) ? ($value[0] ?? null) : $value;
+    }
+
+    protected function normalizeAssetUrl(?string $url): ?string
+    {
+        if ($url === null || $url === '') {
+            return null;
+        }
+
+        if (preg_match('~^https?://~i', $url)) {
+            return $url;
+        }
+
+        $path = ltrim($url, '/');
+        $firstSegment = Str::before($path, '/');
+
+        if (str_contains($firstSegment, '.') || str_contains($firstSegment, ':')) {
+            return request()->getScheme() . '://' . $path;
+        }
+
+        return url('/' . $path);
     }
 
     protected function renderMarkdown(string $markdown): string
