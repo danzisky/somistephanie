@@ -97,7 +97,7 @@ function getTheme(index: number): (typeof latestThemes)[number] {
 
         <div v-if="latestCards.length" class="grid grid-cols-1 items-stretch gap-2 sm:gap-4 md:grid-cols-5">
             <LatestWritingCard
-                :class="[[0, 3].includes(index) ? 'md:col-span-3' : 'md:col-span-2', index < 2 ? 'h-[55vh]' : '']"
+                :class="[[0, 3].includes(index) ? 'md:col-span-3' : 'md:col-span-2', index < 2 ? 'h-[55vh]' : 'h-full max-h-[45vh]']"
                 v-for="(article, index) in latestCards"
                 :key="article.id"
                 :title="article.title"

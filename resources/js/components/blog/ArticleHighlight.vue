@@ -1,7 +1,7 @@
 <template>
   <div class="group w-full mx-auto overflow-hidden rounded-4xl bg-[#f2ecf9] text-[#523d4f] font-sans shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 flex flex-col md:flex-row h-[70vh]">
     <!-- Left Column: Image Section -->
-    <div class="relative w-full md:w-1/2">
+    <div class="relative w-full md:w-1/2 overflow-hidden">
       <img
         :src="props.featured?.hero_image ?? 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&q=80&w=1000'"
         :alt="props.featured?.hero_image_caption ?? 'Person looking in a mirror'"
@@ -40,7 +40,7 @@
       <!-- Action Button -->
       <div class="mt-8">
         <a
-          href="#"
+          :href="`/article/${props.featured?.slug ?? ''}`"
           class="inline-flex items-center gap-2 border border-[#8f6d83] text-[#523d4f] px-5 py-2.5 rounded-full text-xs font-medium hover:bg-[#8f6d83] hover:text-white transition-colors duration-200"
         >
           Read the full story &rarr;
