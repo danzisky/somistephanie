@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NewsletterForm from '@/components/blog/NewsletterForm.vue';
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
-import { Head } from '@inertiajs/vue3';
+import SeoHead from '@/components/blog/SeoHead.vue';
 
 const plans = [
     {
@@ -30,9 +30,7 @@ const plans = [
 </script>
 
 <template>
-    <Head title="Subscribe">
-        <meta name="description" content="Join SOMI's newsletter and membership — stories of my identities, delivered." />
-    </Head>
+    <SeoHead title="Newsletter | SOMI" description="Join SOMI's newsletter for new essays, quiet reflections and notes on faith, ambition, culture and becoming." />
 
     <section class="mx-auto grid w-full max-w-295 items-center gap-12 px-6 py-14 pb-18 md:grid-cols-2">
         <div>

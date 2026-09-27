@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import SeoHead from '@/components/blog/SeoHead.vue';
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Shop">
-        <meta name="description" content="The SOMI shop is on its way." />
-    </Head>
+    <SeoHead title="SOMI Shop | Coming Soon" description="The SOMI shop is on its way, with journals, prints and thoughtful things for every version of you." noindex />
 
     <section class="mx-auto max-w-[640px] px-6 py-24 text-center">
         <div class="mx-auto mb-8 aspect-square w-[220px] overflow-hidden rounded-somi-lg shadow-somi">

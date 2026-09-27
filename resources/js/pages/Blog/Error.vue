@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import SeoHead from '@/components/blog/SeoHead.vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps<{
     status: number;
@@ -9,12 +10,11 @@ const isNotFound = props.status === 404;
 </script>
 
 <template>
-    <Head :title="isNotFound ? 'Page not found' : 'Something went wrong'">
-        <meta
-            name="description"
-            :content="isNotFound ? 'The page you were looking for could not be found.' : 'Something went wrong while loading this page.'"
-        />
-    </Head>
+    <SeoHead
+        :title="isNotFound ? 'Page not found | SOMI' : 'Something went wrong | SOMI'"
+        :description="isNotFound ? 'The page you were looking for could not be found.' : 'Something went wrong while loading this page.'"
+        noindex
+    />
 
     <main class="mx-auto grid min-h-[62vh] w-full max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:py-20">
         <section>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ArchiveRow from '@/components/blog/ArchiveRow.vue';
+import SeoHead from '@/components/blog/SeoHead.vue';
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
 import type { BlogArticleSummary, BlogTopic } from '@/types/blog';
-import { Head } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 
 const props = defineProps<{
@@ -28,9 +28,7 @@ const filtered = computed(() => {
 </script>
 
 <template>
-    <Head title="Contents">
-        <meta name="description" content="Browse every SOMI essay by title, feeling or subject." />
-    </Head>
+    <SeoHead title="Essays on Identity, Faith and Becoming | SOMI" description="Browse every SOMI essay by title, feeling or subject." />
 
     <section class="mx-auto grid w-full max-w-[1180px] items-center gap-10 px-6 py-14 pb-10 md:grid-cols-[1fr_0.4fr]">
         <div>

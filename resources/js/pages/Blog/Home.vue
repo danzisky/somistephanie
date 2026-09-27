@@ -6,6 +6,7 @@ import NewsletterForm from "@/components/blog/NewsletterForm.vue";
 import NewsletterSignup from "@/components/blog/NewsletterSignup.vue";
 import LatestWritingCard from "@/components/blog/card/LatestWriting.vue";
 import TopicPill from "@/components/blog/TopicPill.vue";
+import SeoHead from "@/components/blog/SeoHead.vue";
 import type { BlogArticleSummary, BlogTopic } from "@/types/blog";
 import Concave from "@/components/blog/image/Concave.vue";
 
@@ -28,12 +29,11 @@ function getTheme(index: number): (typeof latestThemes)[number] {
 </script>
 
 <template>
-    <Head title="SOMI — Stories of My Identities">
-        <meta
-            name="description"
-            content="Personal essays and considered ideas on faith, ambition, culture, life and womanhood."
-        />
-    </Head>
+    <SeoHead
+        title="SOMI | Personal Essays on Identity, Faith and Becoming"
+        description="Personal essays and considered ideas on faith, ambition, culture, life and womanhood."
+        schema-type="WebSite"
+    />
 
     <section class="px-4 xl:mx-auto max-w-300 grid w-full items-center gap-12 px-6 py-14 pb-18 md:grid-cols-[1.05fr_0.95fr]">
         <div>

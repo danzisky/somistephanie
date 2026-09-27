@@ -3,8 +3,8 @@ import { computed, ref } from 'vue';
 import LatestWritingCard from '@/components/blog/card/LatestWriting.vue';
 import NewsletterSignup from '@/components/blog/NewsletterSignup.vue';
 import PlaceholderArt from '@/components/blog/PlaceholderArt.vue';
+import SeoHead from '@/components/blog/SeoHead.vue';
 import type { BlogArticle, BlogArticleSummary } from '@/types/blog';
-import { Head } from '@inertiajs/vue3';
 
 const props = defineProps<{
     article: BlogArticle;
@@ -27,6 +27,13 @@ const honey = ref('');
 const commentStatus = ref<'idle' | 'submitting' | 'success' | 'error'>('idle');
 const commentMessage = ref('');
 const commentCount = computed(() => comments.value.length);
+const articleSchema = computed(() => ({
+    headline: props.article.title,
+    description: props.article.standfirst,
+    datePublished: props.article.date ?? undefined,
+    author: { '@type': 'Person', name: props.article.author },
+    ...(props.article.category ? { articleSection: props.article.category } : {}),
+}));
 
 function csrfToken(): string {
     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
@@ -79,9 +86,13 @@ function formatCount(value: number): string {
 </script>
 
 <template>
-    <Head :title="article.title">
-        <meta name="description" :content="article.standfirst" />
-    </Head>
+    <SeoHead
+        :title="`${article.title} | SOMI`"
+        :description="article.standfirst"
+        :image="article.hero_image"
+        schema-type="BlogPosting"
+        :schema="articleSchema"
+    />
 
     <article class="mx-auto w-full max-w-300 px-6">
         <header class="mx-auto py-14 pb-8">

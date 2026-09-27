@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\SeoController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('seo.sitemap');
 Route::get('/', [BlogController::class, 'home'])->name('home');
 Route::get('/contents', [BlogController::class, 'contents'])->name('blog.contents');
 Route::get('/article', [BlogController::class, 'featured'])->name('blog.featured');
