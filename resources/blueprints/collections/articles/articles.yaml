@@ -63,7 +63,13 @@ fields:
       type: integer
       display: 'View count'
       default: 0
-      instructions: 'Static placeholder count shown in the UI (no live tracking yet).'
+      instructions: 'Total article views. This is updated automatically when view tracking is enabled.'
+  -
+    handle: track_views
+    field:
+      type: toggle
+      display: 'Track and display views'
+      default: true
   -
     handle: comments_count
     field:

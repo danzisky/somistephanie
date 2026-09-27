@@ -112,7 +112,7 @@ function formatCount(value: number): string {
         <div class="somi-essay-body mx-auto my-12 w-full text-[1.08rem]" v-html="article.content_html" />
 
         <div class="mx-auto flex w-full flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
-            <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
+            <span v-if="article.track_views" class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
             <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(commentCount) }} comments</span>
         </div>
     </article>

@@ -10,6 +10,7 @@ export interface BlogArticleSummary {
     date_formatted: string | null;
     read_time: number;
     views: number;
+    track_views: boolean;
     comments_count: number;
     featured: boolean;
     hero_image: string | null;

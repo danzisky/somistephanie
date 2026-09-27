@@ -85,6 +85,16 @@ class BlogController extends Controller
             throw new NotFoundHttpException("Article [{$slug}] was not found.");
         }
 
+        if ((bool) ($entry['track_views'] ?? true)) {
+            /** @var \Statamic\Entries\Entry|null $statamicEntry */
+            $statamicEntry = Entry::find($entry['id']);
+
+            if ($statamicEntry) {
+                $statamicEntry->increment('views')->save();
+                $entry['views'] = (int) $statamicEntry->get('views', 0);
+            }
+        }
+
         $others = $this->content->articles(limit: 10);
 
         $related = collect($others)
@@ -216,6 +226,7 @@ class BlogController extends Controller
             'date_formatted' => $date?->format('d F Y'),
             'read_time' => (int) ($entry['read_time'] ?? 0),
             'views' => (int) ($entry['views'] ?? 0),
+            'track_views' => (bool) ($entry['track_views'] ?? true),
             'comments_count' => (int) ($entry['comments_count'] ?? 0),
             'featured' => (bool) ($entry['featured'] ?? false),
             'hero_image' => $this->normalizeAssetUrl($heroImage['url'] ?? $heroImage['permalink'] ?? null),
