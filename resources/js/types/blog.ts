@@ -12,6 +12,7 @@ export interface BlogArticleSummary {
     views: number;
     track_views: boolean;
     comments_count: number;
+    show_comments_count: boolean;
     featured: boolean;
     hero_image: string | null;
     hero_image_caption: string | null;

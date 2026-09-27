@@ -124,7 +124,7 @@ function formatCount(value: number): string {
 
         <div class="mx-auto flex w-full flex-wrap gap-4 border-t border-somi-line pt-6 pb-6">
             <span v-if="article.track_views" class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(article.views) }} views</span>
-            <span class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(commentCount) }} comments</span>
+            <span v-if="article.show_comments_count" class="rounded-full border border-somi-line bg-somi-white px-5 py-2.5 text-sm text-somi-plum-soft">{{ formatCount(commentCount) }} comments</span>
         </div>
     </article>
 
@@ -151,7 +151,9 @@ function formatCount(value: number): string {
     <section class="mx-auto w-full max-w-300 border-t border-somi-line px-6 py-14 pb-18">
         <div class="mb-6 flex flex-wrap items-end justify-between gap-6">
             <p class="text-xs font-semibold tracking-[0.14em] text-somi-rose uppercase">Reader thoughts</p>
-            <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">{{ formatCount(commentCount) }} comments</h2>
+            <h2 class="font-serif text-[clamp(1.6rem,2.6vw,2.2rem)] font-medium text-somi-plum">
+                {{ article.show_comments_count ? `${formatCount(commentCount)} comments` : 'Reader thoughts' }}
+            </h2>
         </div>
 
         <div class="grid grid-cols-1 gap-10 md:grid-cols-2">

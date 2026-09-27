@@ -71,12 +71,11 @@ fields:
       display: 'Track and display views'
       default: true
   -
-    handle: comments_count
+    handle: show_comments_count
     field:
-      type: integer
-      display: 'Comments count'
-      default: 0
-      instructions: 'Static placeholder count shown in the UI (no live comment system yet).'
+      type: toggle
+      display: 'Display comment count'
+      default: true
   -
     handle: featured
     field:

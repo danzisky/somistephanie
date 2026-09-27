@@ -25,7 +25,7 @@ function formatCount(value: number): string {
             <span>{{ article.date_formatted }}</span>
             <span>{{ article.read_time }} min read</span>
             <span v-if="article.track_views">{{ formatCount(article.views) }} views</span>
-            <span>{{ formatCount(article.comments_count) }} comments</span>
+            <span v-if="article.show_comments_count">{{ formatCount(article.comments_count) }} comments</span>
         </div>
     </Link>
 </template>

@@ -22,15 +22,16 @@ class BlogController extends Controller
     public function home(): Response
     {
         $featuredEntries = $this->content->articles(['featured' => true], 1);
-
-        $featured = $featuredEntries[0] ?? null;
-
         $latestEntries = $this->content->articles(limit: 10);
+        $commentCounts = $this->commentCountsFor(array_column(array_merge($featuredEntries, $latestEntries), 'slug'));
+        $featured = isset($featuredEntries[0])
+            ? $this->withCommentCount($featuredEntries[0], $commentCounts)
+            : null;
 
         $latest = collect($latestEntries)
             ->reject(fn(array $entry) => $featured && $entry['id'] === $featured['id'])
             ->take(4)
-            ->map(fn(array $entry) => $this->formatArticle($entry))
+            ->map(fn(array $entry) => $this->formatArticle($this->withCommentCount($entry, $commentCounts)))
             ->values()
             ->all();
 
@@ -64,9 +65,10 @@ class BlogController extends Controller
     public function contents(Request $request): Response
     {
         $entries = $this->content->articles(limit: 100);
+        $commentCounts = $this->commentCountsFor(array_column($entries, 'slug'));
 
         $articles = collect($entries)
-            ->map(fn(array $entry) => $this->formatArticle($entry, withContent: false))
+            ->map(fn(array $entry) => $this->formatArticle($this->withCommentCount($entry, $commentCounts), withContent: false))
             ->values()
             ->all();
 
@@ -95,16 +97,22 @@ class BlogController extends Controller
             }
         }
 
-        $others = $this->content->articles(limit: 10);
+        $comments = $this->commentsFor($slug);
+        if ((bool) ($entry['show_comments_count'] ?? true)) {
+            $entry['comments_count'] = count($comments);
+        }
 
-        $related = collect($others)
+        $others = $this->content->articles(limit: 10);
+        $relatedEntries = collect($others)
             ->reject(fn(array $other) => $other['id'] === $entry['id'])
             ->take(2)
-            ->map(fn(array $other) => $this->formatArticle($other, withContent: false))
+            ->all();
+        $relatedCounts = $this->commentCountsFor(array_column($relatedEntries, 'slug'));
+
+        $related = collect($relatedEntries)
+            ->map(fn(array $other) => $this->formatArticle($this->withCommentCount($other, $relatedCounts), withContent: false))
             ->values()
             ->all();
-
-        $comments = $this->commentsFor($slug);
 
         return Inertia::render('Blog/Article', [
             'article' => $this->formatArticle($entry, withContent: true),
@@ -202,6 +210,37 @@ class BlogController extends Controller
     }
 
     /**
+     * @param  array<int, string>  $slugs
+     * @return \Illuminate\Support\Collection<string, int>
+     */
+    protected function commentCountsFor(array $slugs): \Illuminate\Support\Collection
+    {
+        if ($slugs === []) {
+            return collect();
+        }
+
+        return Entry::query()
+            ->where('collection', 'comments')
+            ->whereIn('article_slug', array_values(array_unique($slugs)))
+            ->get()
+            ->countBy(fn($comment) => $comment->get('article_slug'));
+    }
+
+    /**
+     * @param  array<string, mixed>  $entry
+     * @param  \Illuminate\Support\Collection<string, int>  $counts
+     * @return array<string, mixed>
+     */
+    protected function withCommentCount(array $entry, \Illuminate\Support\Collection $counts): array
+    {
+        if ((bool) ($entry['show_comments_count'] ?? true)) {
+            $entry['comments_count'] = (int) $counts->get($entry['slug'], 0);
+        }
+
+        return $entry;
+    }
+
+    /**
      * Normalize a raw Statamic API entry into the flat shape the Vue
      * components expect, rendering the markdown body to HTML server-side.
      *
@@ -228,6 +267,7 @@ class BlogController extends Controller
             'views' => (int) ($entry['views'] ?? 0),
             'track_views' => (bool) ($entry['track_views'] ?? true),
             'comments_count' => (int) ($entry['comments_count'] ?? 0),
+            'show_comments_count' => (bool) ($entry['show_comments_count'] ?? true),
             'featured' => (bool) ($entry['featured'] ?? false),
             'hero_image' => $this->normalizeAssetUrl($heroImage['url'] ?? $heroImage['permalink'] ?? null),
             'hero_image_caption' => $entry['hero_image_caption'] ?? null,
