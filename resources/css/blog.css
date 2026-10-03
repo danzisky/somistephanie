@@ -31,6 +31,16 @@ html::-webkit-scrollbar-thumb:hover {
     background: var(--color-somi-rose);
 }
 
+.newsletter-signup-art {
+    background:
+        radial-gradient(
+            circle at center,
+            rgb(255 255 255 / 70%),
+            transparent 52%
+        ),
+        linear-gradient(135deg, #e5d3d5, #d8dbe8 38%, #d9d7cc 66%, #e6d8ca);
+}
+
 .somi-essay-body {
     display: flex;
     flex-direction: column;

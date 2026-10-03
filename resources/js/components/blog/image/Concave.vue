@@ -1,16 +1,29 @@
-<template>
-    <figure class="group">
-        <img :src="src" fetchpriority="high" class="h-full w-full rounded-t-[50%] rounded-b-lg border-10 border-somi-white object-cover shadow-somi transition-transform duration-700 ease-out group-hover:scale-105">
-        <slot/>
-    </figure>
-</template>
-
 <script setup lang="ts">
-defineProps<{
-    src: string;
-}>();
+withDefaults(
+    defineProps<{
+        src: string;
+        alt: string;
+        loading?: 'eager' | 'lazy';
+        fetchPriority?: 'high' | 'low' | 'auto';
+    }>(),
+    {
+        loading: 'lazy',
+        fetchPriority: 'auto',
+    },
+);
 </script>
 
-<style scoped>
-
-</style>
+<template>
+    <figure
+        class="group border-somi-white shadow-somi relative overflow-hidden rounded-t-[50%] rounded-b-lg border-10"
+    >
+        <img
+            :src="src"
+            :alt="alt"
+            :loading="loading"
+            :fetchpriority="fetchPriority"
+            class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <slot />
+    </figure>
+</template>

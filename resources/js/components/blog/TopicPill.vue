@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { topicPillBackgroundClasses } from '@/config/blog';
 import type { BlogTopic } from '@/types/blog';
 import { Link } from '@inertiajs/vue3';
 
@@ -7,32 +8,29 @@ const props = defineProps<{
     index: number;
 }>();
 
-const palette = [
-    'bg-[#e8c7cc]',
-    'bg-[#dfe2f1]',
-    'bg-[#e9dcc8]',
-    'bg-[#dfeaf2]',
-    'bg-[#dfeadb]',
-];
-
-const backgroundClass = palette[props.index % palette.length];
+const backgroundClass =
+    topicPillBackgroundClasses[props.index % topicPillBackgroundClasses.length];
 </script>
 
 <template>
     <Link
         :href="`/contents?category=${topic.slug}`"
-        class="group flex items-center gap-5 rounded-e-full rounded-s-full px-5 py-8 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-somi-sm"
+        class="group hover:shadow-somi-sm flex items-center gap-5 rounded-s-full rounded-e-full px-5 py-8 transition-all duration-200 hover:-translate-y-0.5"
         :class="backgroundClass"
     >
-        <span class="w-12 shrink-0 text-right font-serif text-xl leading-none text-somi-plum-soft">
+        <span
+            class="text-somi-plum-soft w-12 shrink-0 text-right font-serif text-xl leading-none"
+        >
             {{ String(index + 1).padStart(2, '0') }}
         </span>
 
         <div class="flex-1 text-left">
-            <h3 class="font-serif text-[clamp(1.6rem,2vw,3rem)] leading-[0.96] tracking-[-0.02em] text-somi-plum">
+            <h3
+                class="text-somi-plum font-serif text-[clamp(1.6rem,2vw,3rem)] leading-[0.96] tracking-[-0.02em]"
+            >
                 {{ topic.title }}
             </h3>
-            <p class="mt-1 text-sm text-somi-plum-soft">
+            <p class="text-somi-plum-soft mt-1 text-sm">
                 {{ topic.description }}
             </p>
         </div>

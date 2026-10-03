@@ -27,3 +27,10 @@ export interface BlogTopic {
     slug: string;
     description: string;
 }
+
+export interface BlogComment {
+    id: string;
+    name: string;
+    comment: string;
+    date: string;
+}
